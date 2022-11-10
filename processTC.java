@@ -16,8 +16,11 @@ public class processTC {
 	
 	private final static String add  ="C:\\codes\\Java\\processM2T\\output.tests.txt";
 	private final static String label0add  ="C:\\codes\\Java\\processM2T\\output.tests.label0.txt";
+	private final static String label0addIdxs  ="C:\\codes\\Java\\processM2T\\output.tests.label0.idxs.txt";
+	private final static String contextFile = "C:\\codes\\Java\\processM2T\\input.methods.txt";
+	private final static String contextLabel0File = "C:\\codes\\Java\\processM2T\\input.methods.label0.txt";
 	private static BufferedReader br;
-	private static BufferedWriter bw;
+	private static BufferedWriter bw,bwIdx;
 	
 	public static int getAssertNum(String testcase){
 		int assert_num = 0;
@@ -78,34 +81,45 @@ public class processTC {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		long lineNum = Files.lines(Paths.get(new File(add).getPath())).count();
+		//以下三行仅仅是验证模块，而非功能模块
+		String addStr = new File(contextLabel0File).getPath();
+		long lineNum = Files.lines(Paths.get(addStr)).count();
 		System.out.println("Total number of lines : " + lineNum);
 		
-		br = new BufferedReader(new FileReader(add), 310);
-		
-		
-		String line;
-		StringBuffer sb= new StringBuffer("");
-		
-		int labelArr[] = new int[] {0,0,0};
-	    while ((line = br.readLine()) != null) {
-	    	labelArr[getLabel(line)]++;
-	    	if(getLabel(line)==0)
-	    		sb.append(line+"\n");
-	    }
-	    br.close();
-
-		for(int j=0;j<3;j++) {
-			System.out.print(j);
-			System.out.print(" : ");
-			System.out.print(labelArr[j]);
-			System.out.print("个测试用例\n");
-		}
-		
-		bw = new BufferedWriter(new FileWriter(label0add),300);
-		bw.write(sb.toString());
-		bw.close();
-		System.out.println();
-		System.out.println("已将label==0的测试用例写入新文件");
+//		br = new BufferedReader(new FileReader(add), 310);
+//		
+//		
+//		String line;
+//		StringBuffer sb= new StringBuffer("");
+//		StringBuffer sbIdx= new StringBuffer("");
+//		
+//		int labelArr[] = new int[] {0,0,0};
+//		int idx = 0;
+//	    while ((line = br.readLine()) != null) {
+//	    	labelArr[getLabel(line)]++;
+//	    	if(getLabel(line)==0) {
+//	    		sb.append(line+"\n");
+//	    		sbIdx.append(idx+"\n");
+//	    	}
+//	    	idx ++;
+//	    }
+//	    br.close();
+//
+//		for(int j=0;j<3;j++) {
+//			System.out.print(j);
+//			System.out.print(" : ");
+//			System.out.print(labelArr[j]);
+//			System.out.print("个测试用例\n");
+//		}
+//		
+//		bw = new BufferedWriter(new FileWriter(label0add),300);
+//		bw.write(sb.toString());
+//		bw.close();
+//		
+//		bwIdx = new BufferedWriter(new FileWriter(label0addIdxs),300);
+//		bwIdx.write(sbIdx.toString());
+//		bwIdx.close();
+//		
+//		System.out.println("已将label==0的测试用例写入新文件");
 	}
 }
