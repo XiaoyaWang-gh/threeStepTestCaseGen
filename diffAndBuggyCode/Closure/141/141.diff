@@ -1,0 +1,915 @@
+diff --git a/gen/com/google/javascript/jscomp/FunctionInformationMap.java b/gen/com/google/javascript/jscomp/FunctionInformationMap.java
+index cfe04d2a..7ecd5bd7 100644
+--- a/gen/com/google/javascript/jscomp/FunctionInformationMap.java
++++ b/gen/com/google/javascript/jscomp/FunctionInformationMap.java
+@@ -60,50 +60,78 @@ public  final class FunctionInformationMap extends
+     public static final int ID_FIELD_NUMBER = 2;
+     private boolean hasId;
+     private int id_ = 0;
+-    public boolean hasId() { return hasId; }
+-    public int getId() { return id_; }
++    public boolean hasId() {
++      return hasId;
++    }
++    public int getId() {
++      return id_;
++    }
+     
+     // required string source_name = 3;
+     public static final int SOURCE_NAME_FIELD_NUMBER = 3;
+     private boolean hasSourceName;
+     private java.lang.String sourceName_ = "";
+-    public boolean hasSourceName() { return hasSourceName; }
+-    public java.lang.String getSourceName() { return sourceName_; }
++    public boolean hasSourceName() {
++      return hasSourceName;
++    }
++    public java.lang.String getSourceName() {
++      return sourceName_;
++    }
+     
+     // required int32 line_number = 4;
+     public static final int LINE_NUMBER_FIELD_NUMBER = 4;
+     private boolean hasLineNumber;
+     private int lineNumber_ = 0;
+-    public boolean hasLineNumber() { return hasLineNumber; }
+-    public int getLineNumber() { return lineNumber_; }
++    public boolean hasLineNumber() {
++      return hasLineNumber;
++    }
++    public int getLineNumber() {
++      return lineNumber_;
++    }
+     
+     // required string module_name = 5;
+     public static final int MODULE_NAME_FIELD_NUMBER = 5;
+     private boolean hasModuleName;
+     private java.lang.String moduleName_ = "";
+-    public boolean hasModuleName() { return hasModuleName; }
+-    public java.lang.String getModuleName() { return moduleName_; }
++    public boolean hasModuleName() {
++      return hasModuleName;
++    }
++    public java.lang.String getModuleName() {
++      return moduleName_;
++    }
+     
+     // required int32 size = 6;
+     public static final int SIZE_FIELD_NUMBER = 6;
+     private boolean hasSize;
+     private int size_ = 0;
+-    public boolean hasSize() { return hasSize; }
+-    public int getSize() { return size_; }
++    public boolean hasSize() {
++      return hasSize;
++    }
++    public int getSize() {
++      return size_;
++    }
+     
+     // required string name = 7;
+     public static final int NAME_FIELD_NUMBER = 7;
+     private boolean hasName;
+     private java.lang.String name_ = "";
+-    public boolean hasName() { return hasName; }
+-    public java.lang.String getName() { return name_; }
++    public boolean hasName() {
++      return hasName;
++    }
++    public java.lang.String getName() {
++      return name_;
++    }
+     
+     // required string compiled_source = 8;
+     public static final int COMPILED_SOURCE_FIELD_NUMBER = 8;
+     private boolean hasCompiledSource;
+     private java.lang.String compiledSource_ = "";
+-    public boolean hasCompiledSource() { return hasCompiledSource; }
+-    public java.lang.String getCompiledSource() { return compiledSource_; }
++    public boolean hasCompiledSource() {
++      return hasCompiledSource;
++    }
++    public java.lang.String getCompiledSource() {
++      return compiledSource_;
++    }
+     
+     private void initFields() {
+     }
+@@ -602,15 +630,23 @@ public  final class FunctionInformationMap extends
+     public static final int NAME_FIELD_NUMBER = 102;
+     private boolean hasName;
+     private java.lang.String name_ = "";
+-    public boolean hasName() { return hasName; }
+-    public java.lang.String getName() { return name_; }
++    public boolean hasName() {
++      return hasName;
++    }
++    public java.lang.String getName() {
++      return name_;
++    }
+     
+     // required string compiled_source = 103;
+     public static final int COMPILED_SOURCE_FIELD_NUMBER = 103;
+     private boolean hasCompiledSource;
+     private java.lang.String compiledSource_ = "";
+-    public boolean hasCompiledSource() { return hasCompiledSource; }
+-    public java.lang.String getCompiledSource() { return compiledSource_; }
++    public boolean hasCompiledSource() {
++      return hasCompiledSource;
++    }
++    public java.lang.String getCompiledSource() {
++      return compiledSource_;
++    }
+     
+     private void initFields() {
+     }
+@@ -914,7 +950,9 @@ public  final class FunctionInformationMap extends
+   public java.util.List<com.google.javascript.jscomp.FunctionInformationMap.Entry> getEntryList() {
+     return entry_;
+   }
+-  public int getEntryCount() { return entry_.size(); }
++  public int getEntryCount() {
++    return entry_.size();
++  }
+   public com.google.javascript.jscomp.FunctionInformationMap.Entry getEntry(int index) {
+     return entry_.get(index);
+   }
+@@ -926,7 +964,9 @@ public  final class FunctionInformationMap extends
+   public java.util.List<com.google.javascript.jscomp.FunctionInformationMap.Module> getModuleList() {
+     return module_;
+   }
+-  public int getModuleCount() { return module_.size(); }
++  public int getModuleCount() {
++    return module_.size();
++  }
+   public com.google.javascript.jscomp.FunctionInformationMap.Module getModule(int index) {
+     return module_.get(index);
+   }
+@@ -1204,14 +1244,16 @@ public  final class FunctionInformationMap extends
+     public com.google.javascript.jscomp.FunctionInformationMap.Entry getEntry(int index) {
+       return result.getEntry(index);
+     }
+-    public Builder setEntry(int index, com.google.javascript.jscomp.FunctionInformationMap.Entry value) {
++    public Builder setEntry(
++        int index, com.google.javascript.jscomp.FunctionInformationMap.Entry value) {
+       if (value == null) {
+         throw new NullPointerException();
+       }
+       result.entry_.set(index, value);
+       return this;
+     }
+-    public Builder setEntry(int index, com.google.javascript.jscomp.FunctionInformationMap.Entry.Builder builderForValue) {
++    public Builder setEntry(
++        int index, com.google.javascript.jscomp.FunctionInformationMap.Entry.Builder builderForValue) {
+       result.entry_.set(index, builderForValue.build());
+       return this;
+     }
+@@ -1225,7 +1267,8 @@ public  final class FunctionInformationMap extends
+       result.entry_.add(value);
+       return this;
+     }
+-    public Builder addEntry(com.google.javascript.jscomp.FunctionInformationMap.Entry.Builder builderForValue) {
++    public Builder addEntry(
++        com.google.javascript.jscomp.FunctionInformationMap.Entry.Builder builderForValue) {
+       if (result.entry_.isEmpty()) {
+         result.entry_ = new java.util.ArrayList<com.google.javascript.jscomp.FunctionInformationMap.Entry>();
+       }
+@@ -1255,14 +1298,16 @@ public  final class FunctionInformationMap extends
+     public com.google.javascript.jscomp.FunctionInformationMap.Module getModule(int index) {
+       return result.getModule(index);
+     }
+-    public Builder setModule(int index, com.google.javascript.jscomp.FunctionInformationMap.Module value) {
++    public Builder setModule(
++        int index, com.google.javascript.jscomp.FunctionInformationMap.Module value) {
+       if (value == null) {
+         throw new NullPointerException();
+       }
+       result.module_.set(index, value);
+       return this;
+     }
+-    public Builder setModule(int index, com.google.javascript.jscomp.FunctionInformationMap.Module.Builder builderForValue) {
++    public Builder setModule(
++        int index, com.google.javascript.jscomp.FunctionInformationMap.Module.Builder builderForValue) {
+       result.module_.set(index, builderForValue.build());
+       return this;
+     }
+@@ -1276,7 +1321,8 @@ public  final class FunctionInformationMap extends
+       result.module_.add(value);
+       return this;
+     }
+-    public Builder addModule(com.google.javascript.jscomp.FunctionInformationMap.Module.Builder builderForValue) {
++    public Builder addModule(
++        com.google.javascript.jscomp.FunctionInformationMap.Module.Builder builderForValue) {
+       if (result.module_.isEmpty()) {
+         result.module_ = new java.util.ArrayList<com.google.javascript.jscomp.FunctionInformationMap.Module>();
+       }
+diff --git a/gen/com/google/javascript/jscomp/Instrumentation.java b/gen/com/google/javascript/jscomp/Instrumentation.java
+index 308f0496..32f3a259 100644
+--- a/gen/com/google/javascript/jscomp/Instrumentation.java
++++ b/gen/com/google/javascript/jscomp/Instrumentation.java
+@@ -33,31 +33,46 @@ public  final class Instrumentation extends
+   public static final int REPORT_DEFINED_FIELD_NUMBER = 1;
+   private boolean hasReportDefined;
+   private java.lang.String reportDefined_ = "";
+-  public boolean hasReportDefined() { return hasReportDefined; }
+-  public java.lang.String getReportDefined() { return reportDefined_; }
++  public boolean hasReportDefined() {
++    return hasReportDefined;
++  }
++  public java.lang.String getReportDefined() {
++    return reportDefined_;
++  }
+   
+   // optional string report_call = 2;
+   public static final int REPORT_CALL_FIELD_NUMBER = 2;
+   private boolean hasReportCall;
+   private java.lang.String reportCall_ = "";
+-  public boolean hasReportCall() { return hasReportCall; }
+-  public java.lang.String getReportCall() { return reportCall_; }
++  public boolean hasReportCall() {
++    return hasReportCall;
++  }
++  public java.lang.String getReportCall() {
++    return reportCall_;
++  }
+   
+   // optional string report_exit = 6;
+   public static final int REPORT_EXIT_FIELD_NUMBER = 6;
+   private boolean hasReportExit;
+   private java.lang.String reportExit_ = "";
+-  public boolean hasReportExit() { return hasReportExit; }
+-  public java.lang.String getReportExit() { return reportExit_; }
++  public boolean hasReportExit() {
++    return hasReportExit;
++  }
++  public java.lang.String getReportExit() {
++    return reportExit_;
++  }
+   
+   // repeated string declaration_to_remove = 3;
+   public static final int DECLARATION_TO_REMOVE_FIELD_NUMBER = 3;
+   private java.util.List<java.lang.String> declarationToRemove_ =
+     java.util.Collections.emptyList();
+-  public java.util.List<java.lang.String> getDeclarationToRemoveList() {
++  public java.util.List<java.lang.String>
++      getDeclarationToRemoveList() {
+     return declarationToRemove_;
+   }
+-  public int getDeclarationToRemoveCount() { return declarationToRemove_.size(); }
++  public int getDeclarationToRemoveCount() {
++    return declarationToRemove_.size();
++  }
+   public java.lang.String getDeclarationToRemove(int index) {
+     return declarationToRemove_.get(index);
+   }
+@@ -66,10 +81,13 @@ public  final class Instrumentation extends
+   public static final int INIT_FIELD_NUMBER = 4;
+   private java.util.List<java.lang.String> init_ =
+     java.util.Collections.emptyList();
+-  public java.util.List<java.lang.String> getInitList() {
++  public java.util.List<java.lang.String>
++      getInitList() {
+     return init_;
+   }
+-  public int getInitCount() { return init_.size(); }
++  public int getInitCount() {
++    return init_.size();
++  }
+   public java.lang.String getInit(int index) {
+     return init_.get(index);
+   }
+@@ -78,8 +96,12 @@ public  final class Instrumentation extends
+   public static final int APP_NAME_SETTER_FIELD_NUMBER = 5;
+   private boolean hasAppNameSetter;
+   private java.lang.String appNameSetter_ = "";
+-  public boolean hasAppNameSetter() { return hasAppNameSetter; }
+-  public java.lang.String getAppNameSetter() { return appNameSetter_; }
++  public boolean hasAppNameSetter() {
++    return hasAppNameSetter;
++  }
++  public java.lang.String getAppNameSetter() {
++    return appNameSetter_;
++  }
+   
+   private void initFields() {
+   }
+@@ -464,7 +486,8 @@ public  final class Instrumentation extends
+     }
+     
+     // repeated string declaration_to_remove = 3;
+-    public java.util.List<java.lang.String> getDeclarationToRemoveList() {
++    public java.util.List<java.lang.String>
++        getDeclarationToRemoveList() {
+       return java.util.Collections.unmodifiableList(result.declarationToRemove_);
+     }
+     public int getDeclarationToRemoveCount() {
+@@ -473,7 +496,8 @@ public  final class Instrumentation extends
+     public java.lang.String getDeclarationToRemove(int index) {
+       return result.getDeclarationToRemove(index);
+     }
+-    public Builder setDeclarationToRemove(int index, java.lang.String value) {
++    public Builder setDeclarationToRemove(
++        int index, java.lang.String value) {
+       if (value == null) {
+     throw new NullPointerException();
+   }
+@@ -504,7 +528,8 @@ public  final class Instrumentation extends
+     }
+     
+     // repeated string init = 4;
+-    public java.util.List<java.lang.String> getInitList() {
++    public java.util.List<java.lang.String>
++        getInitList() {
+       return java.util.Collections.unmodifiableList(result.init_);
+     }
+     public int getInitCount() {
+@@ -513,7 +538,8 @@ public  final class Instrumentation extends
+     public java.lang.String getInit(int index) {
+       return result.getInit(index);
+     }
+-    public Builder setInit(int index, java.lang.String value) {
++    public Builder setInit(
++        int index, java.lang.String value) {
+       if (value == null) {
+     throw new NullPointerException();
+   }
+diff --git a/javadoc/com/google/javascript/rhino/Node.html b/javadoc/com/google/javascript/rhino/Node.html
+index a0c74458..04845c0f 100644
+--- a/javadoc/com/google/javascript/rhino/Node.html
++++ b/javadoc/com/google/javascript/rhino/Node.html
+@@ -938,7 +938,7 @@ This class implements the root of the intermediate representation.
+ </TR>
+ <TR BGCOLOR="white" CLASS="TableRowColor">
+ <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+-<CODE>&nbsp;void</CODE></FONT></TD>
++<CODE>&nbsp;<A HREF="../../../../com/google/javascript/rhino/Node.html" title="class in com.google.javascript.rhino">Node</A></CODE></FONT></TD>
+ <TD><CODE><B><A HREF="../../../../com/google/javascript/rhino/Node.html#copyInformationFrom(com.google.javascript.rhino.Node)">copyInformationFrom</A></B>(<A HREF="../../../../com/google/javascript/rhino/Node.html" title="class in com.google.javascript.rhino">Node</A>&nbsp;other)</CODE>
+ 
+ <BR>
+@@ -947,7 +947,7 @@ This class implements the root of the intermediate representation.
+ </TR>
+ <TR BGCOLOR="white" CLASS="TableRowColor">
+ <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+-<CODE>&nbsp;void</CODE></FONT></TD>
++<CODE>&nbsp;<A HREF="../../../../com/google/javascript/rhino/Node.html" title="class in com.google.javascript.rhino">Node</A></CODE></FONT></TD>
+ <TD><CODE><B><A HREF="../../../../com/google/javascript/rhino/Node.html#copyInformationFromForTree(com.google.javascript.rhino.Node)">copyInformationFromForTree</A></B>(<A HREF="../../../../com/google/javascript/rhino/Node.html" title="class in com.google.javascript.rhino">Node</A>&nbsp;other)</CODE>
+ 
+ <BR>
+@@ -3624,7 +3624,7 @@ public <A HREF="../../../../com/google/javascript/rhino/Node.html" title="class
+ <A NAME="copyInformationFrom(com.google.javascript.rhino.Node)"><!-- --></A><H3>
+ copyInformationFrom</H3>
+ <PRE>
+-public void <B>copyInformationFrom</B>(<A HREF="../../../../com/google/javascript/rhino/Node.html" title="class in com.google.javascript.rhino">Node</A>&nbsp;other)</PRE>
++public <A HREF="../../../../com/google/javascript/rhino/Node.html" title="class in com.google.javascript.rhino">Node</A> <B>copyInformationFrom</B>(<A HREF="../../../../com/google/javascript/rhino/Node.html" title="class in com.google.javascript.rhino">Node</A>&nbsp;other)</PRE>
+ <DL>
+ <DD>Copies source file and name information from the other
+  node given to the current node. Used for maintaining
+@@ -3634,7 +3634,8 @@ public void <B>copyInformationFrom</B>(<A HREF="../../../../com/google/javascrip
+ </DL>
+ </DD>
+ <DD><DL>
+-</DL>
++
++<DT><B>Returns:</B><DD>this</DL>
+ </DD>
+ </DL>
+ <HR>
+@@ -3642,7 +3643,7 @@ public void <B>copyInformationFrom</B>(<A HREF="../../../../com/google/javascrip
+ <A NAME="copyInformationFromForTree(com.google.javascript.rhino.Node)"><!-- --></A><H3>
+ copyInformationFromForTree</H3>
+ <PRE>
+-public void <B>copyInformationFromForTree</B>(<A HREF="../../../../com/google/javascript/rhino/Node.html" title="class in com.google.javascript.rhino">Node</A>&nbsp;other)</PRE>
++public <A HREF="../../../../com/google/javascript/rhino/Node.html" title="class in com.google.javascript.rhino">Node</A> <B>copyInformationFromForTree</B>(<A HREF="../../../../com/google/javascript/rhino/Node.html" title="class in com.google.javascript.rhino">Node</A>&nbsp;other)</PRE>
+ <DL>
+ <DD>Copies source file and name information from the other node to the
+  entire tree rooted at this node.
+@@ -3651,7 +3652,8 @@ public void <B>copyInformationFromForTree</B>(<A HREF="../../../../com/google/ja
+ </DL>
+ </DD>
+ <DD><DL>
+-</DL>
++
++<DT><B>Returns:</B><DD>this</DL>
+ </DD>
+ </DL>
+ <HR>
+diff --git a/src/com/google/javascript/jscomp/ExpressionDecomposer.java b/src/com/google/javascript/jscomp/ExpressionDecomposer.java
+index 41a27d59..4c1c52d1 100644
+--- a/src/com/google/javascript/jscomp/ExpressionDecomposer.java
++++ b/src/com/google/javascript/jscomp/ExpressionDecomposer.java
+@@ -65,6 +65,7 @@ class ExpressionDecomposer {
+     this.knownConstants = constNames;
+   }
+ 
++  // An arbitrary limit to prevent catch infinite recursion.
+   private static final int MAX_INTERATIONS = 100;
+ 
+   /**
+@@ -79,7 +80,7 @@ class ExpressionDecomposer {
+       exposeExpression(expression);
+       if (i > MAX_INTERATIONS) {
+         throw new IllegalStateException(
+-            "DecomposeExpression depth exceeded on :\n" + 
++            "DecomposeExpression depth exceeded on :\n" +
+             expression.toStringTree());
+       }
+     }
+@@ -198,7 +199,7 @@ class ExpressionDecomposer {
+             // Either there were preexisting side-effects, or this node has
+             // side-effects.
+             state.sideEffects = true;
+-  
++
+             // Rewrite the call so "this" is preserved.
+             Node replacement = rewriteCallExpression(parent, state);
+             // Continue from here.
+@@ -720,23 +721,23 @@ class ExpressionDecomposer {
+           }
+ 
+           // In Internet Explorer, DOM objects and other external objects
+-          // methods can not be called indirectly, as is required when the 
++          // methods can not be called indirectly, as is required when the
+           // object or its property can be side-effected.  For example,
+           // when exposing expression f() (with side-effects) in: x.m(f())
+           // either the value of x or its property m might have changed, so
+-          // both the 'this' value ('x') and the function to be called ('x.m') 
++          // both the 'this' value ('x') and the function to be called ('x.m')
+           // need to be preserved. Like so:
+           //   var t1 = x, t2 = x.m, t3 = f();
+           //   t2.call(t1, t3);
+-          // As IE doesn't support the call to these non-javascript objects 
++          // As IE doesn't support the call to these non-javascript objects
+           // methods in this way. We can't do this.
+           // We don't currently distinguish between these types of objects
+           // in the extern definitions and if we did we would need accurate
+           // type information.
+           //
+           Node first = parent.getFirstChild();
+-          if (requiresDecomposition 
+-              && parent.getType() == Token.CALL 
++          if (requiresDecomposition
++              && parent.getType() == Token.CALL
+               && NodeUtil.isGet(first)) {
+             if (maybeExternMethod(first)) {
+               return DecompositionType.UNDECOMPOSABLE;
+@@ -760,18 +761,18 @@ class ExpressionDecomposer {
+    * As the assignment is unaffected by side effect of "foo()"
+    * and the names assigned-to can not influence the state before
+    * the call to foo.
+-   * 
++   *
+    * It is also safe in cases like where the object is constant:
+    *    CONST_NAME.a = foo()
+-   *    CONST_NAME[CONST_VALUE] = foo(); 
+-   * 
++   *    CONST_NAME[CONST_VALUE] = foo();
++   *
+    * This is not true of more complex LHS values, such as
+    *     a.x = foo();
+    *     next().x = foo();
+    * in these cases the checks below are necessary.
+-   * 
++   *
+    * @param seenSideEffects If true, check to see if node-tree maybe affected by
+-   * side-effects, otherwise if the tree has side-effects. @see 
++   * side-effects, otherwise if the tree has side-effects. @see
+    * isExpressionTreeUnsafe
+    * @return Whether the assignment is safe from side-effects.
+    */
+@@ -784,7 +785,7 @@ class ExpressionDecomposer {
+         case Token.GETPROP:
+           return !isExpressionTreeUnsafe(lhs.getFirstChild(), seenSideEffects);
+         case Token.GETELEM:
+-          return !isExpressionTreeUnsafe(lhs.getFirstChild(), seenSideEffects) 
++          return !isExpressionTreeUnsafe(lhs.getFirstChild(), seenSideEffects)
+               && !isExpressionTreeUnsafe(lhs.getLastChild(), seenSideEffects);
+       }
+     }
+diff --git a/src/com/google/javascript/jscomp/NodeUtil.java b/src/com/google/javascript/jscomp/NodeUtil.java
+index 648ed778..aaf84703 100644
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -598,6 +598,12 @@ public final class NodeUtil {
+       case Token.GETPROP:
+       case Token.GETELEM:
+         return true;
++
++      case Token.FUNCTION:
++        // Anonymous functions definitions are not changed by side-effects,
++        // and named functions are not part of expressions.
++        Preconditions.checkState(NodeUtil.isAnonymousFunction(n));
++        return false;
+     }
+ 
+     for (Node c = n.getFirstChild(); c != null; c = c.getNext()) {
+diff --git a/src/com/google/javascript/jscomp/PureFunctionIdentifier.java b/src/com/google/javascript/jscomp/PureFunctionIdentifier.java
+index 632c2264..894d65ba 100644
+--- a/src/com/google/javascript/jscomp/PureFunctionIdentifier.java
++++ b/src/com/google/javascript/jscomp/PureFunctionIdentifier.java
+@@ -174,28 +174,46 @@ class PureFunctionIdentifier implements CompilerPass {
+    */
+   private static Collection<Definition> getCallableDefinitions(
+       DefinitionProvider definitionProvider, Node name) {
+-    List<Definition> result = Lists.newArrayList();
++    if (NodeUtil.isGetProp(name) || NodeUtil.isName(name)) {
++      List<Definition> result = Lists.newArrayList();
+ 
+-    if (!NodeUtil.isGetProp(name) && !NodeUtil.isName(name)) {
+-      return null;
+-    }
++      Collection<Definition> decls =
++          definitionProvider.getDefinitionsReferencedAt(name);
++      if (decls == null) {
++        return null;
++      }
+ 
+-    Collection<Definition> decls =
+-        definitionProvider.getDefinitionsReferencedAt(name);
+-    if (decls == null) {
+-      return null;
+-    }
++      for (Definition current : decls) {
++        Node rValue = current.getRValue();
++        if ((rValue != null) && NodeUtil.isFunction(rValue)) {
++          result.add(current);
++        } else {
++          return null;
++        }
++      }
++
++      return result;
++    } else if (name.getType() == Token.OR || name.getType() == Token.HOOK) {
++      Node firstVal;
++      if (name.getType() == Token.HOOK) {
++        firstVal = name.getFirstChild().getNext();
++      } else {
++        firstVal = name.getFirstChild();
++      }
+ 
+-    for (Definition current : decls) {
+-      Node rValue = current.getRValue();
+-      if ((rValue != null) && NodeUtil.isFunction(rValue)) {
+-        result.add(current);
++      Collection<Definition> defs1 = getCallableDefinitions(definitionProvider,
++                                                            firstVal);
++      Collection<Definition> defs2 = getCallableDefinitions(definitionProvider,
++                                                            firstVal.getNext());
++      if (defs1 != null && defs2 != null) {
++        defs1.addAll(defs2);
++        return defs1;
+       } else {
+         return null;
+       }
++    } else {
++      return null;
+     }
+-
+-    return result;
+   }
+ 
+   /**
+diff --git a/src/com/google/javascript/rhino/Node.java b/src/com/google/javascript/rhino/Node.java
+index db611c69..7db286d4 100644
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1831,8 +1831,9 @@ public class Node implements Cloneable, Serializable
+      * Copies source file and name information from the other
+      * node given to the current node. Used for maintaining
+      * debug information across node append and remove operations.
++     * @return this
+      */
+-    public void copyInformationFrom(Node other) {
++    public Node copyInformationFrom(Node other) {
+         if (getProp(ORIGINALNAME_PROP) == null) {
+             putProp(ORIGINALNAME_PROP, other.getProp(ORIGINALNAME_PROP));
+         }
+@@ -1841,18 +1842,23 @@ public class Node implements Cloneable, Serializable
+             putProp(SOURCEFILE_PROP, other.getProp(SOURCEFILE_PROP));
+             sourcePosition = other.sourcePosition;
+         }
++
++        return this;
+     }
+ 
+     /**
+      * Copies source file and name information from the other node to the
+      * entire tree rooted at this node.
++     * @return this
+      */
+-    public void copyInformationFromForTree(Node other) {
++    public Node copyInformationFromForTree(Node other) {
+       copyInformationFrom(other);
+       for (Node child = getFirstChild();
+            child != null; child = child.getNext()) {
+         child.copyInformationFromForTree(other);
+       }
++
++      return this;
+     }
+ 
+     //==========================================================================
+diff --git a/test/com/google/javascript/jscomp/ExpresssionDecomposerTest.java b/test/com/google/javascript/jscomp/ExpresssionDecomposerTest.java
+index b1abe67f..9844be31 100644
+--- a/test/com/google/javascript/jscomp/ExpresssionDecomposerTest.java
++++ b/test/com/google/javascript/jscomp/ExpresssionDecomposerTest.java
+@@ -25,6 +25,8 @@ import junit.framework.TestCase;
+ 
+ import java.util.Set;
+ 
++import javax.annotation.Nullable;
++
+ /**
+  * Unit tests for ExpressionDecomposer
+  * @author johnlenz@google.com (John Lenz)
+@@ -41,7 +43,7 @@ public class ExpresssionDecomposerTest extends TestCase {
+         DecompositionType.UNDECOMPOSABLE, "while(x = goo()&&foo()){}", "foo");
+     helperCanExposeExpression(
+         DecompositionType.UNDECOMPOSABLE, "while(x += goo()&&foo()){}", "foo");
+-    
++
+     helperCanExposeExpression(
+         DecompositionType.UNDECOMPOSABLE, "do{}while(foo());", "foo");
+     helperCanExposeExpression(
+@@ -80,6 +82,8 @@ public class ExpresssionDecomposerTest extends TestCase {
+         DecompositionType.MOVABLE, "x = foo() || 1", "foo");
+     helperCanExposeExpression(
+         DecompositionType.MOVABLE, "x = foo() ? 0 : 1", "foo");
++    helperCanExposeExpression(
++        DecompositionType.MOVABLE, "(function(a){b = a})(foo())", "foo");
+   }
+ 
+   public void testCanExposeExpression3() {
+@@ -114,21 +118,34 @@ public class ExpresssionDecomposerTest extends TestCase {
+   public void testCanExposeExpression4() {
+     // 'this' must be preserved in call.
+     helperCanExposeExpression(
+-        DecompositionType.UNDECOMPOSABLE, "if (goo.a(1, foo()));", "foo");    
++        DecompositionType.UNDECOMPOSABLE, "if (goo.a(1, foo()));", "foo");
+   }
+ 
+   public void testCanExposeExpression5() {
+     // 'this' must be preserved in call.
+     helperCanExposeExpression(
+-        DecompositionType.UNDECOMPOSABLE, "if (goo['a'](foo()));", "foo");    
++        DecompositionType.UNDECOMPOSABLE, "if (goo['a'](foo()));", "foo");
+   }
+ 
+   public void testCanExposeExpression6() {
+     // 'this' must be preserved in call.
+     helperCanExposeExpression(
+-        DecompositionType.UNDECOMPOSABLE, "z:if (goo.a(1, foo()));", "foo");    
++        DecompositionType.UNDECOMPOSABLE, "z:if (goo.a(1, foo()));", "foo");
++  }
++
++  public void testCanExposeExpression7() {
++    // Verify calls to anonymous function are movable.
++    helperCanExposeAnonymousFunctionExpression(
++        DecompositionType.MOVABLE,
++        "(function(map){descriptions_=map})(\n" +
++            "function(){\n" +
++                "var ret={};\n" +
++                "ret[INIT]='a';\n" +
++                "ret[MIGRATION_BANNER_DISMISS]='b';\n" +
++                "return ret\n" +
++            "}()\n" +
++        ");", 2);
+   }
+-  
+ 
+   public void testMoveExpression1() {
+     // There isn't a reason to do this, but it works.
+@@ -291,7 +308,7 @@ public class ExpresssionDecomposerTest extends TestCase {
+         "if (1) temp_2 = foo(); else temp_2 = 0;" +
+         "if (temp_const_1(1, temp_const_0, temp_2));");
+   }
+-  
++
+   public void testExposePlusEquals() {
+     helperExposeExpression(
+         "var x = 0; x += foo() + 1",
+@@ -317,6 +334,30 @@ public class ExpresssionDecomposerTest extends TestCase {
+     helperCanExposeExpression(expectedResult, code, fnName, null);
+   }
+ 
++  private void helperCanExposeAnonymousFunctionExpression(
++      DecompositionType expectedResult, String code, int call) {
++    Compiler compiler = new Compiler();
++    Set<String> knownConstants = Sets.newHashSet();
++    ExpressionDecomposer decomposer = new ExpressionDecomposer(
++        compiler, compiler.getUniqueNameIdSupplier(), knownConstants);
++    Node tree = parse(compiler, code);
++    assertNotNull(tree);
++
++    Node externsRoot = parse(compiler,
++        "function goo() {}" +
++        "function foo() {}");
++    assertNotNull(externsRoot);
++    Node mainRoot = tree;
++
++    Node callSite = findCall(tree, null, 2);
++    assertNotNull("Call " + call + " was not found.", callSite);
++
++    compiler.resetUniqueNameId();
++    DecompositionType result = decomposer.canExposeExpression(
++        callSite);
++    assertEquals(expectedResult, result);
++  }
++
+   private void helperCanExposeExpression(
+       DecompositionType expectedResult,
+       String code,
+@@ -431,24 +472,44 @@ public class ExpresssionDecomposerTest extends TestCase {
+         "\n" + explanation, explanation);
+   }
+ 
+-
+   private static Node findCall(Node n, String name) {
+-    if (n.getType() == Token.CALL) {
+-      Node callee = n.getFirstChild();
+-      if (callee.getType() == Token.NAME
+-          && callee.getString().equals(name)) {
+-        return n;
+-      }
+-    }
+-
+-    for (Node c : n.children()) {
+-      Node result = findCall(c, name);
+-      if (result != null) {
+-        return result;
++    return findCall(n, name, 1);
++  }
++
++  /**
++   * @param name The name to look for.
++   * @param call The call to look for.
++   * @return The return the Nth CALL node to name found in a pre-order 
++   * traversal.
++   */
++  private static Node findCall(
++      Node root, @Nullable final String name, final int call) {
++    class Find {
++      int found = 0;
++      Node find(Node n) {
++        if (n.getType() == Token.CALL) {
++          Node callee = n.getFirstChild();
++          if (name == null || (callee.getType() == Token.NAME
++              && callee.getString().equals(name))) {
++            found++;
++            if (found == call) {
++              return n;
++            }
++          }
++        }
++
++        for (Node c : n.children()) {
++          Node result = find(c);
++          if (result != null) {
++            return result;
++          }
++        }
++
++        return null;
+       }
+     }
+ 
+-    return null;
++    return (new Find()).find(root);
+   }
+ 
+   private static Node parse(Compiler compiler, String js) {
+diff --git a/test/com/google/javascript/jscomp/InlineFunctionsTest.java b/test/com/google/javascript/jscomp/InlineFunctionsTest.java
+index aa5fe261..ddf7372d 100644
+--- a/test/com/google/javascript/jscomp/InlineFunctionsTest.java
++++ b/test/com/google/javascript/jscomp/InlineFunctionsTest.java
+@@ -16,6 +16,8 @@
+ 
+ package com.google.javascript.jscomp;
+ 
++import com.google.javascript.jscomp.ExpressionDecomposer.DecompositionType;
++
+ /**
+  * Inline function tests.
+  * @author johnlenz@google.com (john lenz)
+@@ -1331,6 +1333,29 @@ public class InlineFunctionsTest extends CompilerTestCase {
+         "x = JSCompiler_temp_const_0");
+   }
+ 
++  public void testDecomposeAnonymousInCall() {
++    test(
++        "(function(map){descriptions_=map})(\n" +
++           "function(){\n" +
++              "var ret={};\n" +
++              "ret[ONE]='a';\n" +
++              "ret[TWO]='b';\n" +
++              "return ret\n" +
++           "}()\n" +
++        ");",
++        "{" +
++        "var JSCompiler_inline_result_0;" +
++        "var ret$$inline_2={};\n" +
++        "ret$$inline_2[ONE]='a';\n" +
++        "ret$$inline_2[TWO]='b';\n" +
++        "JSCompiler_inline_result_0 = ret$$inline_2;\n" +
++        "}" +
++        "{" +
++        "descriptions_=JSCompiler_inline_result_0;" +
++        "}"
++        );
++  }
++
+   public void testInlineConstructor1() {
+     test("function f() {} function _g() {f.call(this)}",
+          "function _g() {void 0}");
+diff --git a/test/com/google/javascript/jscomp/PureFunctionIdentifierTest.java b/test/com/google/javascript/jscomp/PureFunctionIdentifierTest.java
+index fa1052a0..a35ec60d 100644
+--- a/test/com/google/javascript/jscomp/PureFunctionIdentifierTest.java
++++ b/test/com/google/javascript/jscomp/PureFunctionIdentifierTest.java
+@@ -600,6 +600,60 @@ public class PureFunctionIdentifierTest extends CompilerTestCase {
+     checkMarkedCalls(source, ImmutableList.<String>of("A", "A", "f"));
+   }
+ 
++  public void testCallFunctionFOrG() throws Exception {
++    String source = "function f(){}\n" +
++        "function g(){}\n" +
++        "function h(){ (f || g)() }\n" +
++        "h()";
++
++    checkMarkedCalls(source, ImmutableList.<String>of("(f || g)", "h"));
++  }
++
++  public void testCallFunctionFOrGViaHook() throws Exception {
++    String source = "function f(){}\n" +
++        "function g(){}\n" +
++        "function h(){ (false ? f : g)() }\n" +
++        "h()";
++
++    checkMarkedCalls(source, ImmutableList.<String>of("(f : g)", "h"));
++  }
++
++  public void testCallFunctionForGorH() throws Exception {
++    String source = "function f(){}\n" +
++        "function g(){}\n" +
++        "function h(){}\n" +
++        "function i(){ (false ? f : (g || h))() }\n" +
++        "i()";
++
++    checkMarkedCalls(source, ImmutableList.<String>of("(f : (g || h))", "i"));
++  }
++
++  public void testCallFunctionFOrGWithSideEffects() throws Exception {
++    String source = "var x = 0;\n" +
++        "function f(){x = 10}\n" +
++        "function g(){}\n" +
++        "function h(){ (f || g)() }\n" +
++        "function i(){ (g || f)() }\n" +
++        "function j(){ (f || f)() }\n" +
++        "function k(){ (g || g)() }\n" +
++        "h(); i(); j(); k()";
++
++    checkMarkedCalls(source, ImmutableList.<String>of("(g || g)", "k"));
++  }
++
++  public void testCallFunctionFOrGViaHookWithSideEffects() throws Exception {
++    String source = "var x = 0;\n" +
++        "function f(){x = 10}\n" +
++        "function g(){}\n" +
++        "function h(){ (false ? f : g)() }\n" +
++        "function i(){ (false ? g : f)() }\n" +
++        "function j(){ (false ? f : f)() }\n" +
++        "function k(){ (false ? g : g)() }\n" +
++        "h(); i(); j(); k()";
++
++    checkMarkedCalls(source, ImmutableList.<String>of("(g : g)", "k"));
++  }
++
+   public void testInvalidAnnotation1() throws Exception {
+     test("/** @nosideeffects */ function foo() {}",
+          null, INVALID_NO_SIDE_EFFECT_ANNOTATION);
+@@ -668,13 +722,25 @@ public class PureFunctionIdentifierTest extends CompilerTestCase {
+     public void visit(NodeTraversal t, Node n, Node parent) {
+       if (n.getType() == Token.NEW) {
+         if (!NodeUtil.constructorCallHasSideEffects(n)) {
+-          noSideEffectCalls.add(n.getFirstChild().getQualifiedName());
++          noSideEffectCalls.add(generateNameString(n.getFirstChild()));
+         }
+       } else if (n.getType() == Token.CALL) {
+         if (!NodeUtil.functionCallHasSideEffects(n)) {
+-          noSideEffectCalls.add(n.getFirstChild().getQualifiedName());
++          noSideEffectCalls.add(generateNameString(n.getFirstChild()));
+         }
+       }
+     }
++
++    private String generateNameString(Node node) {
++      if (node.getType() == Token.OR) {
++        return "(" + generateNameString(node.getFirstChild()) +
++            " || " + generateNameString(node.getLastChild()) + ")";
++      } else if (node.getType() == Token.HOOK) {
++        return "(" + generateNameString(node.getFirstChild().getNext()) +
++            " : " + generateNameString(node.getLastChild()) + ")";
++      } else {
++        return node.getQualifiedName();
++      }
++    }
+   }
+ }

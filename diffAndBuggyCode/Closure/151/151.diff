@@ -1,0 +1,168 @@
+diff --git a/build.xml b/build.xml
+index 36661cac..5f7600be 100644
+--- a/build.xml
++++ b/build.xml
+@@ -29,6 +29,8 @@
+   <property name="tools.dir" value="${basedir}/tools" />
+   <property name="jarfile" value="${build.dir}/${ant.project.name}.jar" />
+   <property name="num-fuzz-tests" value="10000"/>
++  <property name="test" value="*Test"/>
++  <property name="version" value="HEAD"/>
+ 
+   <property file="build.properties" />
+ 
+@@ -70,6 +72,13 @@
+     <copy file="${src.dir}/com/google/javascript/jscomp/parsing/ParserConfig.properties"
+           todir="${classes.dir}/com/google/javascript/jscomp/parsing" />
+ 
++    <propertyfile
++        file="${classes.dir}/com/google/javascript/jscomp/parsing/ParserConfig.properties"
++        comment="Parser properties">
++      <entry key="compiler.date" type="date" value="now"/>
++      <entry key="compiler.version" value="${version}"/>
++    </propertyfile>
++
+     <!-- Move runtime_type_check.js where RuntimeTypeCheck.java expects it. -->
+     <mkdir dir="${classes.dir}/com/google/javascript/jscomp/js" />
+     <copy file="${src.dir}/com/google/javascript/jscomp/js/runtime_type_check.js"
+@@ -160,7 +169,7 @@
+ 
+   <target name="testclass"
+           depends="compile-tests"
+-          description="compile and execute one JUnit class">
++          description="compile and execute one JUnit class specified with the -Dtest flag.">
+     <junit printsummary="on" fork="true" forkmode="once" showoutput="true">
+       <classpath refid="classpath.path" />
+       <classpath>
+diff --git a/lib/libtrunk_rhino_parser_jarjared.jar b/lib/libtrunk_rhino_parser_jarjared.jar
+index bd6543d4..97ff416f 100755
+Binary files a/lib/libtrunk_rhino_parser_jarjared.jar and b/lib/libtrunk_rhino_parser_jarjared.jar differ
+diff --git a/src/com/google/javascript/jscomp/CommandLineRunner.java b/src/com/google/javascript/jscomp/CommandLineRunner.java
+index d6a4d85a..609df79d 100644
+--- a/src/com/google/javascript/jscomp/CommandLineRunner.java
++++ b/src/com/google/javascript/jscomp/CommandLineRunner.java
+@@ -36,6 +36,7 @@ import java.io.InputStream;
+ import java.io.PrintStream;
+ import java.util.List;
+ import java.util.Map;
++import java.util.ResourceBundle;
+ import java.util.Set;
+ import java.util.logging.Level;
+ import java.util.regex.Matcher;
+@@ -297,6 +298,10 @@ public class CommandLineRunner extends
+         + "a manifest for each module.")
+     private String output_manifest = "";
+ 
++    @Option(name = "--version",
++        usage = "Prints the compiler version to stderr.")
++    private boolean version = false;
++
+     // Our own option parser to be backwards-compatible.
+     // It needs to be public because of the crazy reflection that args4j does.
+     public static class BooleanOptionHandler extends OptionHandler<Boolean> {
+@@ -362,6 +367,9 @@ public class CommandLineRunner extends
+ 
+   private final Flags flags = new Flags();
+ 
++  private static final String configResource =
++      "com.google.javascript.jscomp.parsing.ParserConfig";
++
+   private boolean isConfigValid = false;
+ 
+   /**
+@@ -412,6 +420,15 @@ public class CommandLineRunner extends
+       isConfigValid = false;
+     }
+ 
++    if (flags.version) {
++      ResourceBundle config = ResourceBundle.getBundle(configResource);
++      err.println(
++          "Closure Compiler (http://code.google.com/p/closure/compiler)\n" +
++          "Version: " + config.getString("compiler.version") + "\n" +
++          "Built on: " + config.getString("compiler.date"));
++      err.flush();
++    }
++
+     if (!isConfigValid || flags.display_help) {
+       isConfigValid = false;
+       parser.printUsage(err);
+diff --git a/src/com/google/javascript/jscomp/parsing/ParserConfig.properties b/src/com/google/javascript/jscomp/parsing/ParserConfig.properties
+index 0c1e4a01..9285339d 100644
+--- a/src/com/google/javascript/jscomp/parsing/ParserConfig.properties
++++ b/src/com/google/javascript/jscomp/parsing/ParserConfig.properties
+@@ -23,6 +23,14 @@
+  * @author nicksantos@google.com (Nick Santos)
+  */
+ 
++// The version of the compiler that we're currently building.
++// Should be formatted as:
++// Version# (Revision XXX)
++compiler.version = HEAD
++
++// The datestamp of the compiler that we're currently building.
++compiler.date = NOW
++
+ // A comma-delimited list.
+ jsdoc.annotations =\
+     addon,\
+diff --git a/test/com/google/javascript/jscomp/CommandLineRunnerTest.java b/test/com/google/javascript/jscomp/CommandLineRunnerTest.java
+index f00d7c66..276e1afa 100644
+--- a/test/com/google/javascript/jscomp/CommandLineRunnerTest.java
++++ b/test/com/google/javascript/jscomp/CommandLineRunnerTest.java
+@@ -25,6 +25,8 @@ import com.google.javascript.rhino.Node;
+ 
+ import junit.framework.TestCase;
+ 
++import java.io.ByteArrayOutputStream;
++import java.io.PrintStream;
+ import java.util.List;
+ 
+ /**
+@@ -37,6 +39,8 @@ public class CommandLineRunnerTest extends TestCase {
+   private Compiler lastCompiler = null;
+   private CommandLineRunner lastCommandLineRunner = null;
+   private List<Integer> exitCodes = null;
++  private ByteArrayOutputStream outReader = null;
++  private ByteArrayOutputStream errReader = null;
+ 
+   // If set to true, uses comparison by string instead of by AST.
+   private boolean useStringComparison = false;
+@@ -68,6 +72,8 @@ public class CommandLineRunnerTest extends TestCase {
+   public void setUp() throws Exception {
+     super.setUp();
+     lastCompiler = null;
++    outReader = new ByteArrayOutputStream();
++    errReader = new ByteArrayOutputStream();
+     useStringComparison = false;
+     useModules = ModulePattern.NONE;
+     args.clear();
+@@ -440,6 +446,17 @@ public class CommandLineRunnerTest extends TestCase {
+         builder.toString());
+   }
+ 
++  public void testVersionFlag() {
++    args.add("--version");
++    testSame("");
++    assertEquals(
++        0,
++        new String(errReader.toByteArray()).indexOf(
++            "Closure Compiler (http://code.google.com/p/closure/compiler)\n" +
++            "Version: HEAD\n" +
++            "Built on:"));
++  }
++
+   /* Helper functions */
+ 
+   private void testSame(String original) {
+@@ -542,7 +559,10 @@ public class CommandLineRunnerTest extends TestCase {
+     }
+ 
+     String[] argStrings = args.toArray(new String[] {});
+-    return new CommandLineRunner(argStrings);
++    return new CommandLineRunner(
++        argStrings,
++        new PrintStream(outReader),
++        new PrintStream(errReader));
+   }
+ 
+   private Compiler compile(String[] original) {
