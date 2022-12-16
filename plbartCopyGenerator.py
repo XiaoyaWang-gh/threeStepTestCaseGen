@@ -31,15 +31,12 @@ class PLBartCopyGenerator(PLBartForConditionalGeneration):
 
     def _compute_cross_attn_prob(self, e, encoder_attentions=None):
 
-        # Whether to use centrality as additional information.
         if self.config.centrality:
-            # Sum columns of the attentions from the last encoder layer (in-degree centrality)
             centrality_scores = encoder_attentions[-1].mean(dim=1).mean(dim=1)
             centrality_scores = centrality_scores.unsqueeze(1).repeat_interleave(
                 e.size(1), dim=1
             )
 
-            # Fix the size of the centrality scores to match the size of the e values (beam search)
             if centrality_scores.shape[0] != e.shape[0]:
                 centrality_scores = centrality_scores.repeat_interleave(
                     e.shape[0] // centrality_scores.shape[0], dim=0
@@ -48,7 +45,6 @@ class PLBartCopyGenerator(PLBartForConditionalGeneration):
             # Add to e the centrality scores
             e += centrality_scores
 
-        # Whether to use tf-idf as additional information.
         if self.config.tf_idf:
             # TODO
             pass
@@ -75,11 +71,6 @@ class PLBartCopyGenerator(PLBartForConditionalGeneration):
         target_len = decoder_outputs.shape[1]
         batch_size = encoder_outputs.shape[0]
 
-        # Project the encoder and decoder outputs to compute the cross-attention (Eq. 3)
-        ## In my experiments, not to project the encoder outputs seems to work better.
-        ## You can define `proj_enc_layer` and `proj_dec_layer` in self,
-        ## to project the encoder outputs. If so, you will likely need to pass a `d_proj`
-        ## argument in the config object.
         proj_enc = encoder_outputs  # self.proj_enc_layer(encoder_outputs)
         proj_dec = decoder_outputs  # self.proj_dec_layer(decoder_outputs)
 
@@ -90,28 +81,17 @@ class PLBartCopyGenerator(PLBartForConditionalGeneration):
             )
         )
 
-        # Compute the cross-attentions (e and \alpha, Eqs. 3 and 4)
         e = self.attn_layer(sum_projs).squeeze(-1)
-        ## The attention to the pad token should be 0 --> e=-100 where input_ids==pad_token_id
-        ## Tokens like stopwords can be removed in this point.
         e[:, :, (encoder_input_ids == self.config.pad_token_id).nonzero()] = -100
         attns = self._compute_cross_attn_prob(e, encoder_attentions)
 
-        # Compute the context vectors (Eq. 5)
         context_vectors = torch.einsum("ijk, ikf -> ijf", attns, encoder_outputs)
 
-        # Compute P_vocab (Eq. 6)
-        ## I used the pretrained lm_head to project both the decoder outputs
-        ## and the context vectors.
         p_vocab_decoder = self.lm_head(decoder_outputs) + self.final_logits_bias
         p_vocab_context = self.lm_head(context_vectors) + self.final_logits_bias
         p_vocab = p_vocab_decoder + p_vocab_context
         p_vocab = nn.Softmax(dim=-1)(p_vocab)
 
-        # Compute p_gen (Eq. 8)
-        ## Since there is not "state" in Transformers, I consider the
-        ## decoder output in the current and previous steps, along with
-        ## the context vector of the current decoder state.
         pgen_context = self.pgen_context_layer(context_vectors)
         pgen_decoder_output = self.pgen_decoder_output_layer(decoder_outputs)
         pgen_decoder_prev_output = self.pgen_decoder_prev_output_layer(
@@ -120,12 +100,7 @@ class PLBartCopyGenerator(PLBartForConditionalGeneration):
         p_gen = nn.Sigmoid()(
             pgen_context + pgen_decoder_output + pgen_decoder_prev_output
         )
-        ## In my experiments using pre-trained models, I see that `p_gen` is approximately 1 since
-        ## the beginning of the training process. Sometimes, it worked better to fix the `p_gen`
-        ## to the % of novel tokens.
-        # p_gen = torch.zeros_like(p_gen) + 0.7
-
-        # Compute P_copy (Eq. 9)
+        
         p_copy = torch.zeros_like(p_vocab)
 
         ## Fix the size of the encoder_ids if beam search is being used.
@@ -142,12 +117,7 @@ class PLBartCopyGenerator(PLBartForConditionalGeneration):
             attns,
         )
 
-        # The output distribution is the sum of p_copy and p_vocab weighted by p_gen
         final_dist = torch.log((1.0 - p_gen) * p_copy + p_gen * p_vocab)
-
-        # print("P_COPY:", p_copy[0][-1].topk(20).indices)
-        # print("P_VOCAB:", p_vocab[0][-1].topk(20).indices)
-        # print("P_FINAL", final_dist[0][-1].topk(20).indices)
 
         return final_dist
 
@@ -190,8 +160,6 @@ class PLBartCopyGenerator(PLBartForConditionalGeneration):
             if decoder_input_ids is None:
                 decoder_input_ids = shift_tokens_right(labels, self.config.pad_token_id)
 
-        # different to other models, MBart automatically creates decoder_input_ids from
-        # input_ids if no decoder_input_ids are provided
         if decoder_input_ids is None and decoder_inputs_embeds is None:
             decoder_input_ids = shift_tokens_right(input_ids, self.config.pad_token_id)
 
@@ -206,7 +174,6 @@ class PLBartCopyGenerator(PLBartForConditionalGeneration):
                 return_dict=return_dict,
             )
 
-        # If the user passed a tuple for encoder_outputs, we wrap it in a BaseModelOutput when return_dict=True
         elif return_dict and not isinstance(encoder_outputs, BaseModelOutput):
             encoder_outputs = BaseModelOutput(
                 last_hidden_state=encoder_outputs[0],
