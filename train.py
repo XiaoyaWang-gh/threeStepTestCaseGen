@@ -1,6 +1,7 @@
 import torch
 import os
-from transformers import PLBartForConditionalGeneration,AdamW
+from transformers import AdamW,AutoConfig
+from plbartCopyGenerator import PLBartCopyGenerator
 from transformers.optimization import get_scheduler
 import path
 from datasets import load_from_disk
@@ -17,7 +18,6 @@ os.environ["CUDA_VISIBLE_DEVICES"] = '0,1,2,3'
 device_ids = [0, 1, 2, 3]
 
 #load_from_disk
-print(help(load_from_disk))
 processed_train_dataset = load_from_disk(path.new_len_processed_data_dir)
 print(processed_train_dataset.__len__)
 
@@ -28,7 +28,7 @@ def getLoader(_batch_size):
     
     #得到数据加载器
     loader = DataLoader(
-        dataset = processed_train_dataset.shuffle(1),
+        dataset = processed_train_dataset.shuffle(),
         collate_fn = dataprocess.collate_fn,
         batch_size = _batch_size,
         num_workers = 8
@@ -50,7 +50,7 @@ def train(model,batch_size,epochs):
     plot_y_loss = []
 
     loader = getLoader(batch_size)
-    optimizer = AdamW(model.parameters(),lr=5e-5)
+    optimizer = AdamW(model.parameters(),lr=1e-5)
     scheduler = get_scheduler(
         name = "linear",
         num_warmup_steps = 0,
@@ -85,13 +85,13 @@ def train(model,batch_size,epochs):
         if loss.mean().item() < minimum:
             minimum = loss.mean().item()
             # model.save_pretrained(path.my_checkpoint) 不并行就不需要module
-            model.module.save_pretrained(path.my_checkpoint_new_len_1213)
+            model.module.save_pretrained(path.my_checkpoint_copygen_1216)
 
     x = np.array(torch.Tensor(plot_x_epoch).cpu())
     y = np.array(torch.Tensor(plot_y_loss).cpu())
     plt.plot(x,y,ls="-",c="g",lw=2,label="loss")
     plt.legend()
-    plt.savefig("/data1/xiaoyawang/code/yaya_plbart/pictures/12-13/loss-epoch-"+str(epochs)+".png")
+    plt.savefig("/data1/xiaoyawang/code/yaya_plbart/pictures/12-16/loss-epoch-"+str(epochs)+".png")
     e_t = time.time()
     print("End time mark : ",time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
     cost_sec = e_t - b_t
@@ -117,12 +117,15 @@ def get_parameter_number(model):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--batch_size', type=int, default=16)#
-    parser.add_argument('--epochs', type=int, default=70)#
+    parser.add_argument('--batch_size', type=int, default=4)
+    parser.add_argument('--epochs', type=int, default=100)
+    parser.add_argument('--load_ckpt', type=str, default=path.hf_checkpoint)
     args = parser.parse_args()
 
-    #获得模型 
-    model = PLBartForConditionalGeneration.from_pretrained(path.my_checkpoint_new_len_1211)
+    #获得模型
+    config = AutoConfig.from_pretrained(args.load_ckpt)
+    config.update({"centrality": True, "tf_idf": False}) 
+    model = PLBartCopyGenerator.from_pretrained(args.load_ckpt,config=config)
     print(get_parameter_number(model))#打印模型的参数量和可训练的参数量
     print(model)
     model = parallel_model(model,1)
