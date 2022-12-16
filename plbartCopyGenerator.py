@@ -10,10 +10,6 @@ import torch
 # hf_checkpoint = "/data1/xiaoyawang/plbart_repo/hf_plbart_files"
 
 class PLBartCopyGenerator(PLBartForConditionalGeneration):
-    """
-    MBart with the copy mechanism of (See, 2017).
-    Background section: https://aclanthology.org/2020.acl-main.125.pdf
-    """
 
     def __init__(self, config):
         super().__init__(config)
@@ -34,19 +30,6 @@ class PLBartCopyGenerator(PLBartForConditionalGeneration):
         self.init_weights()
 
     def _compute_cross_attn_prob(self, e, encoder_attentions=None):
-        """
-        Given e from Eq. 3, compute \alpha from Eq. 4.
-        This method can be overwritten to include additional
-        information before computing the softmax, e.g. TF-IDF or centrality.
-        Args:
-            e (torch.Tensor): (batch_size, target_len, source_len), the e values
-               for each (target_i, source_j) for each sample in a batch.
-            encoder_attentions (torch.Tensor): (batch_size, source_len, target_len),
-                                               needed to compute centrality.
-        Returns:
-            torch.Tensor: (batch_size, target_len, source_len), the \alpha values
-            of the cross-attention for each (target_i, source_j) for each sample in a batch.
-        """
 
         # Whether to use centrality as additional information.
         if self.config.centrality:
@@ -74,9 +57,7 @@ class PLBartCopyGenerator(PLBartForConditionalGeneration):
 
     @staticmethod
     def _shift_right_one_pad(x):
-        """
-        Shift a vector one position to the right and padd.
-        """
+
         shifted = x.roll(1)
         shifted[0] = 0
         return shifted
@@ -87,17 +68,6 @@ class PLBartCopyGenerator(PLBartForConditionalGeneration):
         decoder_outputs,
         encoder_input_ids,
     ):
-        """
-        Compute the output distribution using the copy mechanism of (See, 2017).
-        Background section of: https://aclanthology.org/2020.acl-main.125.pdf
-        Args:
-            encoder_outputs (torch.Tensor): (batch_size, source_len, d_model)
-            decoder_outputs (torch.Tensor): (batch_size, target_len, d_model)
-            encoder_input_ids (torch.LongTensor): (batch_size, source_len)
-        Returns:
-            torch.Tensor: (batch_size, target_len, vocab_size) distribution over the vocabulary
-                          computed using a copy mechanism.
-        """
         encoder_attentions = encoder_outputs.attentions
         encoder_outputs = encoder_outputs[0]
         decoder_outputs = decoder_outputs[0]
@@ -340,29 +310,3 @@ class PLBartCopyGenerator(PLBartForConditionalGeneration):
             "cross_attn_head_mask": cross_attn_head_mask,
             "use_cache": use_cache,  # change this to avoid caching (presumably for debugging)
         }
-
-
-# if __name__ == "__main__":
-    """
-    You can use this class in run_summarization.py, adding some arguments to the parser, and calling
-    the MBartCopyGenerator when loading the model.
-    if model_args.copy_enhanced:
-        logger.info("Using a copy enhanced version of MBart")
-        model_type = MBartCopyGenerator
-        config.update({"centrality": False, "tf_idf": False}) # update the config if needed.
-    else:
-        model_type = AutoModelForSeq2SeqLM
-    model = model_type.from_pretrained(
-        model_args.model_name_or_path,
-        from_tf=bool(".ckpt" in model_args.model_name_or_path),
-        config=config,
-        cache_dir=model_args.cache_dir,
-        revision=model_args.model_revision,
-        use_auth_token=True if model_args.use_auth_token else None,
-    )
-    """
-
-    
-    # config = AutoConfig.from_pretrained(hf_checkpoint) 
-    # config.update({"centrality": True, "tf_idf": False})
-    # model = PLBartCopyGenerator.from_pretrained(hf_checkpoint, config=config)
